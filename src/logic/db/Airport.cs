@@ -33,5 +33,10 @@ namespace session_03.src.logic.db
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Route> Routes1 { get; set; }
+
+        public override string ToString()
+        {
+            return IATACode.ToString();
+        }
     }
 }

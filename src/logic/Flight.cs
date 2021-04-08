@@ -26,5 +26,7 @@ namespace session_03.src.logic
                 return String.Join(" - ", FlightNumbers);
             } }
 
+        public CabinType CabinType { get; set; }
+        public List<Schedule> Path { get; set; }
     }
 }

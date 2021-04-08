@@ -8,7 +8,7 @@ namespace session_03.src.logic.db
     public partial class DatabaseContext : DbContext
     {
         public DatabaseContext()
-            : base("name=DatabaseConnectionStringProduction")
+            : base("name=DatabaseConnectionStringDev")
         {
         }
 

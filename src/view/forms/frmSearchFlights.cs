@@ -1,8 +1,10 @@
 ﻿using session_03.src.logic;
+using session_03.src.logic.db;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -17,15 +19,81 @@ namespace session_03.src.view.forms
         public frmSearchFlights()
         {
             InitializeComponent();
-
             FlightsSearchOptions = new FlightsSearchOptions();
         }
 
-        private void frmSearchFlights_Load(object sender, EventArgs e)
+        private async void frmSearchFlights_Load(object sender, EventArgs e)
         {
+            var allAirports = await Program.DB.Airports.ToListAsync();
+            cmbxSearchFrom.DataSource = allAirports.ToArray();
+            cmbxSearchFrom.SelectedIndex = 0;
+            cmbxSearchTo.DataSource = allAirports.ToArray();
+            cmbxSearchTo.SelectedIndex = 1;
+
+            var allCabinTypes = await Program.DB.CabinTypes.ToListAsync();
+            cmbxSearchCabinType.DataSource = allCabinTypes;
+            cmbxSearchCabinType.SelectedIndex = 0;
+
+            dtpSearchOutbound.Value = DateTime.Today;
+            dtpSearchReturn.Value = DateTime.Today.AddDays(10);
+
+            // for dev
+            var allSchedules = await Program.DB.Schedules.ToListAsync();
+            var distinctSchedules = allSchedules
+                .Select((sc) => sc.RouteID)
+                .Distinct()
+                .Select((RouteID) => allSchedules.First((el) => el.RouteID == RouteID))
+                .ToList();
+            var allStr = "";
+            foreach (var item in allSchedules)
+                allStr += $"{item.Route.DepartureAirport.IATACode} --> {item.Route.ArrivalAirport.IATACode}\n";
+            var distStr = "";
+            foreach (var item in distinctSchedules)
+                distStr += $"{item.Route.DepartureAirport.IATACode} --> {item.Route.ArrivalAirport.IATACode}\n";
+            MessageBox.Show(allStr);
+        }
+        private async void btnSearchApply_Click(object sender, EventArgs e)
+        {
+            var errText = string.Empty;
+            var from = cmbxSearchFrom.SelectedItem as Airport;
+            var to = cmbxSearchTo.SelectedItem as Airport;
+            var cabinType = cmbxSearchCabinType.SelectedItem as CabinType;
+            var isWithReturn = rbntSearchReturn.Checked;
+            var outboundDate = dtpSearchOutbound.Value;
+            var returnDate = dtpSearchReturn.Value;
+            var isNDaysBeforeAndAfterOutbound = cbxIsNDaysBeforeAndAfterOutbound.Checked;
+            var isNDaysBeforeAndAfterReturn = cbxIsNDaysBeforeAndAfterReturn.Checked;
+            var nDaysBeforeAndAfter = 3;
+
+            #region Validation
+            if (from == null) errText += "From airport is invalid\n";
+            if (to == null) errText += "To airport is invalid\n";
+            if (from != null && to != null && from == to) errText += "From and To airport must not be the same\n";
+            if (cabinType == null) errText += "Cabin type is invalid\n";
+            if (returnDate > outboundDate) errText += "Return date must be after outbound\n";
+
+            if (string.IsNullOrWhiteSpace(errText))
+            {
+                MessageBox.Show(errText);
+                return;
+            }
+            #endregion
+
+            FlightsSearchOptions = new FlightsSearchOptions()
+            {
+                From = from,
+                To = to,
+                CabinType = cabinType,
+                IsWithReturn = isWithReturn,
+                OutboundDate = outboundDate,
+                ReturnDate = returnDate,
+                IsNDaysBeforeAndAfterOutbound = isNDaysBeforeAndAfterOutbound,
+                IsNDaysBeforeAndAfterReturn = isNDaysBeforeAndAfterReturn,
+                NDaysBeforeAndAfter = nDaysBeforeAndAfter,
+            };
+
 
         }
-
         private void btnBookFlight_Click(object sender, EventArgs e)
         {
             // TODO: validate

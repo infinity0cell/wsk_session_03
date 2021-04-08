@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using session_03.src.lib.GraphAllPathsFinder;
 using session_03.src.logic.db;
 
 namespace session_03.src.logic
@@ -18,9 +20,94 @@ namespace session_03.src.logic
         /// <summary>
         /// Returns list of the flights for given search options
         /// </summary>
-        public List<Flight> Search()
+        public async Task<FlightSearchResult> Search()
         {
-            throw new NotImplementedException();
+            // получение полетов
+            var allSchedules = await Program.DB.Schedules.OrderBy(sch => sch.EconomyPrice).Where(sch => sch.Confirmed).ToListAsync();
+            var distinctSchedules = allSchedules // distincted by (from, to)
+                .Select(sch => $"{sch.Route.DepartureAirport.IATACode}_{sch.Route.ArrivalAirport.IATACode}")
+                .Distinct()
+                .Select(fromToStr => 
+                    allSchedules.FirstOrDefault(sch => sch.Route.DepartureAirport.IATACode == fromToStr.Split('_')[0]
+                        && sch.Route.ArrivalAirport.IATACode == fromToStr.Split('_')[1])
+                    )
+                .ToList();
+
+            foreach (var item in distinctSchedules)
+                Console.WriteLine(item.Route);
+
+            // билд нод
+            var nodesByIATACode = new Dictionary<string, GraphNode>();
+            foreach (var sch in distinctSchedules)
+            {
+                var fromAirport = sch.Route.DepartureAirport.IATACode;
+                var toAirport = sch.Route.ArrivalAirport.IATACode;
+                if (!nodesByIATACode.ContainsKey(fromAirport))
+                    nodesByIATACode[fromAirport] = new GraphNode(fromAirport);
+                if (!nodesByIATACode.ContainsKey(toAirport))
+                    nodesByIATACode[toAirport] = new GraphNode(toAirport);
+
+                nodesByIATACode[fromAirport].AddChildren(nodesByIATACode[toAirport], false);
+            }
+
+            Console.WriteLine();
+            foreach (var kv in nodesByIATACode)
+            {
+                Console.WriteLine($"{kv.Key}:");
+                foreach (var child in kv.Value.Children)
+                {
+                    Console.WriteLine($"  {child.DisplayName}");
+                }
+            }
+
+            var pathsFinder = new GraphAllPathsFinder();
+
+            var paths1 = pathsFinder.FindAllPaths(nodesByIATACode["CAI"], nodesByIATACode["ADE"]);
+            //var paths2 = pathsFinder.FindAllPaths(nodesByIATACode["RUH"], nodesByIATACode["CAI"]);
+            //var paths3 = pathsFinder.FindAllPaths(nodesByIATACode["ADE"], nodesByIATACode["AUH"]);
+            //var paths4 = pathsFinder.FindAllPaths(nodesByIATACode["ADE"], new GraphNode("not existing node"));
+
+            var outboundPaths = pathsFinder.FindAllPaths(nodesByIATACode[SearchOptions.From.IATACode], nodesByIATACode[SearchOptions.To.IATACode]);
+            var returnPaths = pathsFinder.FindAllPaths(nodesByIATACode[SearchOptions.To.IATACode], nodesByIATACode[SearchOptions.From.IATACode]);
+
+            var outboundFlights = new List<Flight>();
+            var returnFlights = new List<Flight>();
+
+            foreach (var path in outboundPaths)
+            {
+                var schedules = new List<Schedule>();
+                if (path.Count < 2)
+                    break;
+                GraphNode prev = null;
+                for (int i = 0; i < path.Count; i++)
+                {
+                    if (prev == null)
+                    {
+                        prev = path[i];
+                        continue;
+                    }
+
+                    var leftIATA = path[i].DisplayName;
+                    var rightIATA = prev.DisplayName;
+                    var schedule = allSchedules.FirstOrDefault(sch => sch.Route.ArrivalAirport.IATACode == leftIATA
+                        && sch.Route.DepartureAirport.IATACode == rightIATA);
+                    if (schedule != null)
+                        schedules.Add(schedule);
+
+                    prev = path[i];
+                }
+
+                // тут надо сбилдить Flight и добавть его в outboundFlights
+                // потом ниже надо сделать такое же для return flights
+            }
+
+            // результат
+            var result = new FlightSearchResult()
+            {
+                OutboundFlights = outboundFlights,
+                ReturnFlights = returnFlights,
+            };
+            return result;
         }
     }
 
@@ -34,6 +121,12 @@ namespace session_03.src.logic
         public DateTime ReturnDate { get; set; }
         public bool IsNDaysBeforeAndAfterOutbound { get; set; }
         public bool IsNDaysBeforeAndAfterReturn { get; set; }
-        public int NDaysBeforeAndAfter { get; set; }
+        public int NDaysBeforeAndAfter { get; set; } = 0;
+    }
+
+    public class FlightSearchResult
+    {
+        public List<Flight> OutboundFlights { get; set; }
+        public List<Flight> ReturnFlights { get; set; }
     }
 }

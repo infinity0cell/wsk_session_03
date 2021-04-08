@@ -30,5 +30,10 @@ namespace session_03.src.logic.db
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Schedule> Schedules { get; set; }
+
+        public override string ToString()
+        {
+            return $"{DepartureAirport.IATACode} -> {ArrivalAirport.IATACode}";
+        }
     }
 }
