@@ -1,4 +1,5 @@
-﻿using session_03.src.logic;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
+using session_03.src.logic;
 using session_03.src.logic.db;
 using System;
 using System.Collections.Generic;
@@ -38,19 +39,19 @@ namespace session_03.src.view.forms
             dtpSearchReturn.Value = DateTime.Today.AddDays(10);
 
             // for dev
-            var allSchedules = await Program.DB.Schedules.ToListAsync();
-            var distinctSchedules = allSchedules
-                .Select((sc) => sc.RouteID)
-                .Distinct()
-                .Select((RouteID) => allSchedules.First((el) => el.RouteID == RouteID))
-                .ToList();
-            var allStr = "";
-            foreach (var item in allSchedules)
-                allStr += $"{item.Route.DepartureAirport.IATACode} --> {item.Route.ArrivalAirport.IATACode}\n";
-            var distStr = "";
-            foreach (var item in distinctSchedules)
-                distStr += $"{item.Route.DepartureAirport.IATACode} --> {item.Route.ArrivalAirport.IATACode}\n";
-            MessageBox.Show(allStr);
+            //var allSchedules = await Program.DB.Schedules.ToListAsync();
+            //var distinctSchedules = allSchedules
+            //    .Select((sc) => sc.RouteID)
+            //    .Distinct()
+            //    .Select((RouteID) => allSchedules.First((el) => el.RouteID == RouteID))
+            //    .ToList();
+            //var allStr = "";
+            //foreach (var item in allSchedules)
+            //    allStr += $"{item.Route.DepartureAirport.IATACode} --> {item.Route.ArrivalAirport.IATACode}\n";
+            //var distStr = "";
+            //foreach (var item in distinctSchedules)
+            //    distStr += $"{item.Route.DepartureAirport.IATACode} --> {item.Route.ArrivalAirport.IATACode}\n";
+            //MessageBox.Show(allStr);
         }
         private async void btnSearchApply_Click(object sender, EventArgs e)
         {
@@ -70,9 +71,9 @@ namespace session_03.src.view.forms
             if (to == null) errText += "To airport is invalid\n";
             if (from != null && to != null && from == to) errText += "From and To airport must not be the same\n";
             if (cabinType == null) errText += "Cabin type is invalid\n";
-            if (returnDate > outboundDate) errText += "Return date must be after outbound\n";
+            if (returnDate <= outboundDate) errText += "Return date must be after outbound\n";
 
-            if (string.IsNullOrWhiteSpace(errText))
+            if (!string.IsNullOrWhiteSpace(errText))
             {
                 MessageBox.Show(errText);
                 return;
@@ -91,8 +92,11 @@ namespace session_03.src.view.forms
                 IsNDaysBeforeAndAfterReturn = isNDaysBeforeAndAfterReturn,
                 NDaysBeforeAndAfter = nDaysBeforeAndAfter,
             };
+            var searcher = new FlightsSearcher(FlightsSearchOptions);
+            var searchResult = await searcher.Search();
 
-
+            outboundFlightBindingSource.DataSource = new SortableBindingList<Flight>(searchResult.OutboundFlights);
+            returnFlightBindingSource.DataSource = new SortableBindingList<Flight>(searchResult.ReturnFlights);
         }
         private void btnBookFlight_Click(object sender, EventArgs e)
         {

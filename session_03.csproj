@@ -190,6 +190,7 @@
   <ItemGroup>
     <Compile Include="src\lib\GraphAllPathsFinder\GraphAllPathsFinder.cs" />
     <Compile Include="src\lib\GraphAllPathsFinder\Graph.cs" />
+    <Compile Include="src\lib\Helpers\CabinPriceCalculator.cs" />
     <Compile Include="src\logic\db\Aircraft.cs" />
     <Compile Include="src\logic\db\Airport.cs" />
     <Compile Include="src\logic\db\CabinType.cs" />

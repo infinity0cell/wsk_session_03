@@ -26,23 +26,24 @@ namespace session_03.src
         [STAThread]
         static void Main()
         {
-            var allAirports = DB.Airports.ToList();
-            var allCabinTypes = DB.CabinTypes.ToList();
-            var opts = new logic.FlightsSearchOptions()
-            {
-                From = allAirports.Find(a => a.IATACode == "DOH"),
-                To = allAirports.Find(a => a.IATACode == "BAH"),
-                CabinType = allCabinTypes.First(),
-                IsWithReturn = false,
-                IsNDaysBeforeAndAfterOutbound = false,
-                IsNDaysBeforeAndAfterReturn = false,
-                NDaysBeforeAndAfter = 0,
-                OutboundDate = DateTime.Parse("05/10/2017"),
-            };
-            var flightsSearcher = new logic.FlightsSearcher(opts);
-            var result = flightsSearcher.Search();
+            //var allAirports = DB.Airports.ToList();
+            //var allCabinTypes = DB.CabinTypes.ToList();
+            //var opts = new logic.FlightsSearchOptions()
+            //{
+            //    From = allAirports.Find(a => a.IATACode == "DOH"),
+            //    To = allAirports.Find(a => a.IATACode == "BAH"),
+            //    CabinType = allCabinTypes.First(),
+            //    IsWithReturn = true,
+            //    IsNDaysBeforeAndAfterOutbound = false,
+            //    IsNDaysBeforeAndAfterReturn = false,
+            //    NDaysBeforeAndAfter = 3,
+            //    OutboundDate = DateTime.Parse("05/10/2017"),
+            //    ReturnDate = DateTime.Parse("07/10/2017"),
+            //};
+            //var flightsSearcher = new logic.FlightsSearcher(opts);
+            //var result = flightsSearcher.Search();
 
-            result.Wait();
+            //result.Wait();
             //return;
 
             //lib.GraphAllPathsFinder.GraphsTest.Main_();
