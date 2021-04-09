@@ -35,8 +35,10 @@ namespace session_03.src.view.forms
             cmbxSearchCabinType.DataSource = allCabinTypes;
             cmbxSearchCabinType.SelectedIndex = 0;
 
-            dtpSearchOutbound.Value = DateTime.Today;
-            dtpSearchReturn.Value = DateTime.Today.AddDays(10);
+            //dtpSearchOutbound.Value = DateTime.Today;
+            dtpSearchOutbound.Value = DateTime.Parse("05/10/2017");
+            dtpSearchReturn.Value = dtpSearchReturn.Value.AddDays(10);
+
 
             // for dev
             //var allSchedules = await Program.DB.Schedules.ToListAsync();
@@ -62,9 +64,8 @@ namespace session_03.src.view.forms
             var isWithReturn = rbntSearchReturn.Checked;
             var outboundDate = dtpSearchOutbound.Value;
             var returnDate = dtpSearchReturn.Value;
-            var isNDaysBeforeAndAfterOutbound = cbxIsNDaysBeforeAndAfterOutbound.Checked;
-            var isNDaysBeforeAndAfterReturn = cbxIsNDaysBeforeAndAfterReturn.Checked;
-            var nDaysBeforeAndAfter = 3;
+            var nDaysBeforeAndAfterOutbound = cbxIsNDaysBeforeAndAfterOutbound.Checked ? 3 : 0;
+            var nDaysBeforeAndAfterReturn = cbxIsNDaysBeforeAndAfterReturn.Checked ? 3 : 0;
 
             #region Validation
             if (from == null) errText += "From airport is invalid\n";
@@ -88,9 +89,8 @@ namespace session_03.src.view.forms
                 IsWithReturn = isWithReturn,
                 OutboundDate = outboundDate,
                 ReturnDate = returnDate,
-                IsNDaysBeforeAndAfterOutbound = isNDaysBeforeAndAfterOutbound,
-                IsNDaysBeforeAndAfterReturn = isNDaysBeforeAndAfterReturn,
-                NDaysBeforeAndAfter = nDaysBeforeAndAfter,
+                NDaysBeforeAndAfterOutbound = nDaysBeforeAndAfterOutbound,
+                NDaysBeforeAndAfterReturn = nDaysBeforeAndAfterReturn,
             };
             var searcher = new FlightsSearcher(FlightsSearchOptions);
             var searchResult = await searcher.Search();

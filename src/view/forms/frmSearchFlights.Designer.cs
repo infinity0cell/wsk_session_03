@@ -122,7 +122,6 @@ namespace session_03.src.view.forms
             this.dtpSearchReturn.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpSearchReturn.Location = new System.Drawing.Point(616, 79);
             this.dtpSearchReturn.Name = "dtpSearchReturn";
-            this.dtpSearchReturn.ShowCheckBox = true;
             this.dtpSearchReturn.Size = new System.Drawing.Size(180, 22);
             this.dtpSearchReturn.TabIndex = 11;
             // 

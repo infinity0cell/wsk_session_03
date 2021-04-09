@@ -92,8 +92,8 @@ namespace session_03.src.logic
                     var rightIATA = path[i].DisplayName;
                     var schedule = allSchedules.FirstOrDefault(sch => sch.Route.DepartureAirport.IATACode == leftIATA
                         && sch.Route.ArrivalAirport.IATACode == rightIATA
-                        && SearchOptions.OutboundDate >= sch.Date.AddDays(-SearchOptions.NDaysBeforeAndAfter)
-                        && SearchOptions.OutboundDate <= sch.Date.AddDays(SearchOptions.NDaysBeforeAndAfter)
+                        && SearchOptions.OutboundDate >= sch.Date.AddDays(-SearchOptions.NDaysBeforeAndAfterOutbound)
+                        && SearchOptions.OutboundDate <= sch.Date.AddDays(SearchOptions.NDaysBeforeAndAfterOutbound)
                         );
                     if (schedule == null)
                     {
@@ -145,8 +145,8 @@ namespace session_03.src.logic
                         var rightIATA = prev.DisplayName;
                         var schedule = allSchedules.FirstOrDefault(sch => sch.Route.ArrivalAirport.IATACode == leftIATA
                             && sch.Route.DepartureAirport.IATACode == rightIATA
-                            && SearchOptions.ReturnDate >= sch.Date.AddDays(-SearchOptions.NDaysBeforeAndAfter)
-                            && SearchOptions.ReturnDate <= sch.Date.AddDays(SearchOptions.NDaysBeforeAndAfter)
+                            && SearchOptions.ReturnDate >= sch.Date.AddDays(-SearchOptions.NDaysBeforeAndAfterReturn)
+                            && SearchOptions.ReturnDate <= sch.Date.AddDays(SearchOptions.NDaysBeforeAndAfterReturn)
                             );
                         if (schedule == null)
                         {
@@ -195,9 +195,8 @@ namespace session_03.src.logic
         public bool IsWithReturn { get; set; }
         public DateTime OutboundDate { get; set; }
         public DateTime ReturnDate { get; set; }
-        public bool IsNDaysBeforeAndAfterOutbound { get; set; }
-        public bool IsNDaysBeforeAndAfterReturn { get; set; }
-        public int NDaysBeforeAndAfter { get; set; } = 0;
+        public int NDaysBeforeAndAfterOutbound { get; set; } = 0;
+        public int NDaysBeforeAndAfterReturn { get; set; } = 0;
     }
 
     public class FlightSearchResult

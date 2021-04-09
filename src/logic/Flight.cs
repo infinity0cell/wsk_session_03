@@ -18,7 +18,7 @@ namespace session_03.src.logic
             } }
         public decimal CabinPrice { get; set; }
         public string CabinPriceStr { get {
-                return $"${CabinPrice}";
+                return $"${CabinPrice.ToString("0")}";
             } }
         public int StopsNumber { get
             {
