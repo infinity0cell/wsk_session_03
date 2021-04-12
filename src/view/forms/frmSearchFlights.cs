@@ -17,6 +17,8 @@ namespace session_03.src.view.forms
     public partial class frmSearchFlights : Form
     {
         private FlightsSearchOptions FlightsSearchOptions { get; set; }
+        private Flight SelectedOutboundFlight { get; set; }
+        private Flight SelectedReturnFlight { get; set; }
         public frmSearchFlights()
         {
             InitializeComponent();
@@ -100,9 +102,33 @@ namespace session_03.src.view.forms
         }
         private void btnBookFlight_Click(object sender, EventArgs e)
         {
-            // TODO: validate
+            SelectedOutboundFlight = outboundFlightBindingSource.Current as Flight;
+            SelectedReturnFlight = returnFlightBindingSource.Current as Flight;
+            var psngrsCnt = Convert.ToInt32(nudPassengersCount.Value);
+            var isNotEnoughFreeSeats_ = SelectedOutboundFlight?.Path.Any(sch =>
+            {
+                var firstClassSeats = sch.Aircraft.TotalSeats - sch.Aircraft.BusinessSeats - sch.Aircraft.EconomySeats;
+                if (SelectedOutboundFlight.CabinType.ID == 1)
+                    return psngrsCnt > sch.Aircraft.EconomySeats;
+                if (SelectedOutboundFlight.CabinType.ID == 2)
+                    return psngrsCnt > sch.Aircraft.BusinessSeats;
+                return psngrsCnt > firstClassSeats;
+            });
+            var isNotEnoughFreeSeats = isNotEnoughFreeSeats_.HasValue ? isNotEnoughFreeSeats_.Value : false;
 
-            var frm = new frmBooking();
+            #region Validating
+            var errText = "";
+            if (SelectedOutboundFlight == null) errText += "Invalid outbound flight selected\n";
+            if (isNotEnoughFreeSeats) errText += "Not enough free seats available\n";
+                
+            if (!string.IsNullOrWhiteSpace(errText))
+            {
+                MessageBox.Show(errText);
+                return;
+            }
+            #endregion
+
+            var frm = new frmBooking(SelectedOutboundFlight, SelectedReturnFlight);
             frm.ShowDialog();
         }
     }

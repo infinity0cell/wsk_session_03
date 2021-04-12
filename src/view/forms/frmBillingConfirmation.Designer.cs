@@ -110,6 +110,7 @@ namespace session_03.src.view.forms
             this.btnIssueTickets.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnIssueTickets.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnIssueTickets.UseVisualStyleBackColor = true;
+            this.btnIssueTickets.Click += new System.EventHandler(this.btnIssueTickets_Click);
             // 
             // btnCancel
             // 

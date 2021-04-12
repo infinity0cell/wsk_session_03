@@ -29,8 +29,9 @@ namespace session_03.src.view.forms
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.lblOutboundFlightNumber = new System.Windows.Forms.Label();
+            this.lblOutboundFlightNumbers = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.lblOutboundCabinType = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -55,7 +56,7 @@ namespace session_03.src.view.forms
             this.cmbxPassportCountry = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.lblReturnFlightNumber = new System.Windows.Forms.Label();
+            this.lblReturnFlightNumbers = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.lblReturnCabinType = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
@@ -66,17 +67,25 @@ namespace session_03.src.view.forms
             this.btnRemovePassenger = new System.Windows.Forms.Button();
             this.btnConfirmBooking = new System.Windows.Forms.Button();
             this.btnBack = new System.Windows.Forms.Button();
+            this.passengerBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.firstnameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lastnameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.birthdateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.passportNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.passportCountryIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.phoneDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPassengers)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.passengerBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.lblOutboundFlightNumber);
+            this.groupBox1.Controls.Add(this.lblOutboundFlightNumbers);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.lblOutboundCabinType);
             this.groupBox1.Controls.Add(this.label3);
@@ -91,23 +100,23 @@ namespace session_03.src.view.forms
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Outbound flight details";
             // 
-            // lblOutboundFlightNumber
+            // lblOutboundFlightNumbers
             // 
-            this.lblOutboundFlightNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblOutboundFlightNumber.Location = new System.Drawing.Point(655, 20);
-            this.lblOutboundFlightNumber.Name = "lblOutboundFlightNumber";
-            this.lblOutboundFlightNumber.Size = new System.Drawing.Size(158, 24);
-            this.lblOutboundFlightNumber.TabIndex = 5;
-            this.lblOutboundFlightNumber.Text = "Flight number";
-            this.lblOutboundFlightNumber.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblOutboundFlightNumbers.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblOutboundFlightNumbers.Location = new System.Drawing.Point(655, 20);
+            this.lblOutboundFlightNumbers.Name = "lblOutboundFlightNumbers";
+            this.lblOutboundFlightNumbers.Size = new System.Drawing.Size(158, 24);
+            this.lblOutboundFlightNumbers.TabIndex = 5;
+            this.lblOutboundFlightNumbers.Text = "Flight number";
+            this.lblOutboundFlightNumbers.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label4
             // 
             this.label4.Location = new System.Drawing.Point(549, 20);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(100, 24);
+            this.label4.Size = new System.Drawing.Size(108, 24);
             this.label4.TabIndex = 5;
-            this.label4.Text = "Flight number:";
+            this.label4.Text = "Flight number(s):";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblOutboundCabinType
@@ -182,9 +191,18 @@ namespace session_03.src.view.forms
             this.dgvPassengers.AllowUserToDeleteRows = false;
             this.dgvPassengers.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvPassengers.AutoGenerateColumns = false;
             this.dgvPassengers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvPassengers.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.dgvPassengers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvPassengers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.firstnameDataGridViewTextBoxColumn,
+            this.lastnameDataGridViewTextBoxColumn,
+            this.birthdateDataGridViewTextBoxColumn,
+            this.passportNumberDataGridViewTextBoxColumn,
+            this.passportCountryIdDataGridViewTextBoxColumn,
+            this.phoneDataGridViewTextBoxColumn});
+            this.dgvPassengers.DataSource = this.passengerBindingSource;
             this.dgvPassengers.Location = new System.Drawing.Point(9, 284);
             this.dgvPassengers.MultiSelect = false;
             this.dgvPassengers.Name = "dgvPassengers";
@@ -265,6 +283,7 @@ namespace session_03.src.view.forms
             this.btnAddPassenger.TabIndex = 12;
             this.btnAddPassenger.Text = "Add passenger";
             this.btnAddPassenger.UseVisualStyleBackColor = true;
+            this.btnAddPassenger.Click += new System.EventHandler(this.btnAddPassenger_Click);
             // 
             // dtpBirthdate
             // 
@@ -334,7 +353,7 @@ namespace session_03.src.view.forms
             // 
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox4.Controls.Add(this.lblReturnFlightNumber);
+            this.groupBox4.Controls.Add(this.lblReturnFlightNumbers);
             this.groupBox4.Controls.Add(this.label18);
             this.groupBox4.Controls.Add(this.lblReturnCabinType);
             this.groupBox4.Controls.Add(this.label20);
@@ -349,23 +368,23 @@ namespace session_03.src.view.forms
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Return flight details";
             // 
-            // lblReturnFlightNumber
+            // lblReturnFlightNumbers
             // 
-            this.lblReturnFlightNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblReturnFlightNumber.Location = new System.Drawing.Point(655, 20);
-            this.lblReturnFlightNumber.Name = "lblReturnFlightNumber";
-            this.lblReturnFlightNumber.Size = new System.Drawing.Size(158, 24);
-            this.lblReturnFlightNumber.TabIndex = 5;
-            this.lblReturnFlightNumber.Text = "- - -";
-            this.lblReturnFlightNumber.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblReturnFlightNumbers.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblReturnFlightNumbers.Location = new System.Drawing.Point(655, 20);
+            this.lblReturnFlightNumbers.Name = "lblReturnFlightNumbers";
+            this.lblReturnFlightNumbers.Size = new System.Drawing.Size(158, 24);
+            this.lblReturnFlightNumbers.TabIndex = 5;
+            this.lblReturnFlightNumbers.Text = "- - -";
+            this.lblReturnFlightNumbers.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label18
             // 
             this.label18.Location = new System.Drawing.Point(549, 20);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(100, 24);
+            this.label18.Size = new System.Drawing.Size(108, 24);
             this.label18.TabIndex = 5;
-            this.label18.Text = "Flight number:";
+            this.label18.Text = "Flight number(s):";
             this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblReturnCabinType
@@ -434,6 +453,7 @@ namespace session_03.src.view.forms
             this.btnRemovePassenger.TabIndex = 16;
             this.btnRemovePassenger.Text = "Remove passenger";
             this.btnRemovePassenger.UseVisualStyleBackColor = true;
+            this.btnRemovePassenger.Click += new System.EventHandler(this.btnRemovePassenger_Click);
             // 
             // btnConfirmBooking
             // 
@@ -461,10 +481,57 @@ namespace session_03.src.view.forms
             this.btnBack.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnBack.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            // 
+            // passengerBindingSource
+            // 
+            this.passengerBindingSource.DataSource = typeof(session_03.src.logic.Passenger);
+            // 
+            // firstnameDataGridViewTextBoxColumn
+            // 
+            this.firstnameDataGridViewTextBoxColumn.DataPropertyName = "Firstname";
+            this.firstnameDataGridViewTextBoxColumn.HeaderText = "Firstname";
+            this.firstnameDataGridViewTextBoxColumn.Name = "firstnameDataGridViewTextBoxColumn";
+            this.firstnameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // lastnameDataGridViewTextBoxColumn
+            // 
+            this.lastnameDataGridViewTextBoxColumn.DataPropertyName = "Lastname";
+            this.lastnameDataGridViewTextBoxColumn.HeaderText = "Lastname";
+            this.lastnameDataGridViewTextBoxColumn.Name = "lastnameDataGridViewTextBoxColumn";
+            this.lastnameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // birthdateDataGridViewTextBoxColumn
+            // 
+            this.birthdateDataGridViewTextBoxColumn.DataPropertyName = "Birthdate";
+            this.birthdateDataGridViewTextBoxColumn.HeaderText = "Birthdate";
+            this.birthdateDataGridViewTextBoxColumn.Name = "birthdateDataGridViewTextBoxColumn";
+            this.birthdateDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // passportNumberDataGridViewTextBoxColumn
+            // 
+            this.passportNumberDataGridViewTextBoxColumn.DataPropertyName = "PassportNumber";
+            this.passportNumberDataGridViewTextBoxColumn.HeaderText = "Passport number";
+            this.passportNumberDataGridViewTextBoxColumn.Name = "passportNumberDataGridViewTextBoxColumn";
+            this.passportNumberDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // passportCountryIdDataGridViewTextBoxColumn
+            // 
+            this.passportCountryIdDataGridViewTextBoxColumn.DataPropertyName = "PassportCountry";
+            this.passportCountryIdDataGridViewTextBoxColumn.HeaderText = "Passport country";
+            this.passportCountryIdDataGridViewTextBoxColumn.Name = "passportCountryIdDataGridViewTextBoxColumn";
+            this.passportCountryIdDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // phoneDataGridViewTextBoxColumn
+            // 
+            this.phoneDataGridViewTextBoxColumn.DataPropertyName = "Phone";
+            this.phoneDataGridViewTextBoxColumn.HeaderText = "Phone";
+            this.phoneDataGridViewTextBoxColumn.Name = "phoneDataGridViewTextBoxColumn";
+            this.phoneDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // frmBooking
             // 
-            this.AcceptButton = this.btnConfirmBooking;
+            this.AcceptButton = this.btnAddPassenger;
             this.AccessibleDescription = " ";
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -488,11 +555,13 @@ namespace session_03.src.view.forms
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Booking confirmation";
+            this.Load += new System.EventHandler(this.frmBooking_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvPassengers)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.passengerBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -516,12 +585,12 @@ namespace session_03.src.view.forms
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ComboBox cmbxPassportCountry;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label lblOutboundFlightNumber;
+        private System.Windows.Forms.Label lblOutboundFlightNumbers;
         private System.Windows.Forms.Label lblOutboundCabinType;
         private System.Windows.Forms.Label lblOutboundTo;
         private System.Windows.Forms.Label lblOutboundFrom;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Label lblReturnFlightNumber;
+        private System.Windows.Forms.Label lblReturnFlightNumbers;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label lblReturnCabinType;
         private System.Windows.Forms.Label label20;
@@ -536,5 +605,12 @@ namespace session_03.src.view.forms
         private System.Windows.Forms.MaskedTextBox mtbxPhone;
         private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.Button btnRemovePassenger;
+        private System.Windows.Forms.BindingSource passengerBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn firstnameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn lastnameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn birthdateDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn passportNumberDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn passportCountryIdDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn phoneDataGridViewTextBoxColumn;
     }
 }
