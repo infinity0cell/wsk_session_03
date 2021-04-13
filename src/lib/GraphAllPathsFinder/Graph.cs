@@ -8,8 +8,6 @@ namespace session_03.src.lib.GraphAllPathsFinder
     {
         public static void Main_()
         {
-            var schedules = 1;
-
             var auh = new GraphNodeWithData<string>("My test data", "AUH");
             var ade = new GraphNode("ADE");
             var ruh = new GraphNode("RUH");

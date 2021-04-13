@@ -1,6 +1,7 @@
 ﻿using session_03.src.logic;
 using session_03.src.logic.db;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -94,15 +95,26 @@ namespace session_03.src.view.forms
 
         private void btnConfirmBooking_Click(object sender, EventArgs e)
         {
-            var passengers = passengerBindingSource.List;
+            var passengers = new List<Passenger>();
+            
+            if (passengerBindingSource.List != null)
+            {
+                foreach (var psngr in passengerBindingSource.List)
+                {
+                    passengers.Add(psngr as Passenger);
+                }
+            }
+
             if (!(passengers != null && passengers.Count > 0))
             {
-                MessageBox.Show("Invalid passengers list");
+                MessageBox.Show(" Invalid passengers list");
                 return;
             }
 
             var frm = new frmBillingConfirmation(SelectedOutboundFlight, SelectedReturnFlight, passengers);
             frm.ShowDialog();
+            if (frm.CloseParentForm)
+                Close();
         }
     }
 }
