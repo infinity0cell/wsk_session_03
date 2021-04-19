@@ -103,7 +103,7 @@ namespace session_03.src.view.forms
         private void btnBookFlight_Click(object sender, EventArgs e)
         {
             SelectedOutboundFlight = outboundFlightBindingSource.Current as Flight;
-            SelectedReturnFlight = returnFlightBindingSource.Current as Flight;
+            SelectedReturnFlight = rbntSearchOneWay.Checked ? null : returnFlightBindingSource.Current as Flight;
             var psngrsCnt = Convert.ToInt32(nudPassengersCount.Value);
             var isNotEnoughFreeSeats_ = SelectedOutboundFlight?.Path.Any(sch =>
             {

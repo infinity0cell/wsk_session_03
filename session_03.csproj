@@ -281,7 +281,6 @@
     <None Include="Resources\icons8_restore_20px.png" />
     <None Include="Resources\icons8_checkmark_yes_20px.png" />
     <None Include="Resources\icons8_cancel_20px.png" />
-    <Content Include="notes.txt" />
     <Content Include="session_03.ldf">
       <DependentUpon>session_03.mdf</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
