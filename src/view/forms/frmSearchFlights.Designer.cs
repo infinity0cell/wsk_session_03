@@ -52,14 +52,6 @@ namespace session_03.src.view.forms
             this.nudPassengersCount = new System.Windows.Forms.NumericUpDown();
             this.btnBookFlight = new System.Windows.Forms.Button();
             this.dgvOutboundFlights = new System.Windows.Forms.DataGridView();
-            this.fromDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.toDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.timeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.flightNumbersStrDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cabinPriceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.stopsNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.outboundFlightBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dgvReturnFlights = new System.Windows.Forms.DataGridView();
             this.fromDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -69,12 +61,20 @@ namespace session_03.src.view.forms
             this.cabinPriceStrDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.stopsNumberDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.returnFlightBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.fromDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.timeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.flightNumbersStrDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cabinPriceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.stopsNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.outboundFlightBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPassengersCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOutboundFlights)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.outboundFlightBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReturnFlights)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.returnFlightBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.outboundFlightBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -160,25 +160,27 @@ namespace session_03.src.view.forms
             // 
             // rbntSearchOneWay
             // 
-            this.rbntSearchOneWay.Checked = true;
             this.rbntSearchOneWay.Location = new System.Drawing.Point(9, 78);
             this.rbntSearchOneWay.Name = "rbntSearchOneWay";
             this.rbntSearchOneWay.Size = new System.Drawing.Size(81, 24);
             this.rbntSearchOneWay.TabIndex = 7;
-            this.rbntSearchOneWay.TabStop = true;
             this.rbntSearchOneWay.Text = "One way";
             this.rbntSearchOneWay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbntSearchOneWay.UseVisualStyleBackColor = true;
+            this.rbntSearchOneWay.CheckedChanged += new System.EventHandler(this.rbntSearchOneWay_CheckedChanged);
             // 
             // rbntSearchReturn
             // 
+            this.rbntSearchReturn.Checked = true;
             this.rbntSearchReturn.Location = new System.Drawing.Point(124, 78);
             this.rbntSearchReturn.Name = "rbntSearchReturn";
             this.rbntSearchReturn.Size = new System.Drawing.Size(90, 24);
             this.rbntSearchReturn.TabIndex = 6;
+            this.rbntSearchReturn.TabStop = true;
             this.rbntSearchReturn.Text = "With return";
             this.rbntSearchReturn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.rbntSearchReturn.UseVisualStyleBackColor = true;
+            this.rbntSearchReturn.CheckedChanged += new System.EventHandler(this.rbntSearchReturn_CheckedChanged);
             // 
             // cmbxSearchCabinType
             // 
@@ -358,66 +360,6 @@ namespace session_03.src.view.forms
             this.dgvOutboundFlights.Size = new System.Drawing.Size(984, 237);
             this.dgvOutboundFlights.TabIndex = 18;
             // 
-            // fromDataGridViewTextBoxColumn
-            // 
-            this.fromDataGridViewTextBoxColumn.DataPropertyName = "From";
-            this.fromDataGridViewTextBoxColumn.FillWeight = 40F;
-            this.fromDataGridViewTextBoxColumn.HeaderText = "From";
-            this.fromDataGridViewTextBoxColumn.Name = "fromDataGridViewTextBoxColumn";
-            this.fromDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // toDataGridViewTextBoxColumn
-            // 
-            this.toDataGridViewTextBoxColumn.DataPropertyName = "To";
-            this.toDataGridViewTextBoxColumn.FillWeight = 40F;
-            this.toDataGridViewTextBoxColumn.HeaderText = "To";
-            this.toDataGridViewTextBoxColumn.Name = "toDataGridViewTextBoxColumn";
-            this.toDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // dateDataGridViewTextBoxColumn
-            // 
-            this.dateDataGridViewTextBoxColumn.DataPropertyName = "Date";
-            this.dateDataGridViewTextBoxColumn.FillWeight = 50F;
-            this.dateDataGridViewTextBoxColumn.HeaderText = "Date";
-            this.dateDataGridViewTextBoxColumn.Name = "dateDataGridViewTextBoxColumn";
-            this.dateDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // timeDataGridViewTextBoxColumn
-            // 
-            this.timeDataGridViewTextBoxColumn.DataPropertyName = "Time";
-            this.timeDataGridViewTextBoxColumn.FillWeight = 40F;
-            this.timeDataGridViewTextBoxColumn.HeaderText = "Time";
-            this.timeDataGridViewTextBoxColumn.Name = "timeDataGridViewTextBoxColumn";
-            this.timeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // flightNumbersStrDataGridViewTextBoxColumn
-            // 
-            this.flightNumbersStrDataGridViewTextBoxColumn.DataPropertyName = "FlightNumbersStr";
-            this.flightNumbersStrDataGridViewTextBoxColumn.FillWeight = 110F;
-            this.flightNumbersStrDataGridViewTextBoxColumn.HeaderText = "Flight number(s)";
-            this.flightNumbersStrDataGridViewTextBoxColumn.Name = "flightNumbersStrDataGridViewTextBoxColumn";
-            this.flightNumbersStrDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // cabinPriceDataGridViewTextBoxColumn
-            // 
-            this.cabinPriceDataGridViewTextBoxColumn.DataPropertyName = "CabinPriceStr";
-            this.cabinPriceDataGridViewTextBoxColumn.FillWeight = 90F;
-            this.cabinPriceDataGridViewTextBoxColumn.HeaderText = "Cabin price";
-            this.cabinPriceDataGridViewTextBoxColumn.Name = "cabinPriceDataGridViewTextBoxColumn";
-            this.cabinPriceDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // stopsNumberDataGridViewTextBoxColumn
-            // 
-            this.stopsNumberDataGridViewTextBoxColumn.DataPropertyName = "StopsNumber";
-            this.stopsNumberDataGridViewTextBoxColumn.FillWeight = 70F;
-            this.stopsNumberDataGridViewTextBoxColumn.HeaderText = "Stops number";
-            this.stopsNumberDataGridViewTextBoxColumn.Name = "stopsNumberDataGridViewTextBoxColumn";
-            this.stopsNumberDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // outboundFlightBindingSource
-            // 
-            this.outboundFlightBindingSource.DataSource = typeof(session_03.src.logic.Flight);
-            // 
             // dgvReturnFlights
             // 
             this.dgvReturnFlights.AllowUserToAddRows = false;
@@ -505,6 +447,66 @@ namespace session_03.src.view.forms
             // 
             this.returnFlightBindingSource.DataSource = typeof(session_03.src.logic.Flight);
             // 
+            // fromDataGridViewTextBoxColumn
+            // 
+            this.fromDataGridViewTextBoxColumn.DataPropertyName = "From";
+            this.fromDataGridViewTextBoxColumn.FillWeight = 40F;
+            this.fromDataGridViewTextBoxColumn.HeaderText = "From";
+            this.fromDataGridViewTextBoxColumn.Name = "fromDataGridViewTextBoxColumn";
+            this.fromDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // toDataGridViewTextBoxColumn
+            // 
+            this.toDataGridViewTextBoxColumn.DataPropertyName = "To";
+            this.toDataGridViewTextBoxColumn.FillWeight = 40F;
+            this.toDataGridViewTextBoxColumn.HeaderText = "To";
+            this.toDataGridViewTextBoxColumn.Name = "toDataGridViewTextBoxColumn";
+            this.toDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dateDataGridViewTextBoxColumn
+            // 
+            this.dateDataGridViewTextBoxColumn.DataPropertyName = "Date";
+            this.dateDataGridViewTextBoxColumn.FillWeight = 50F;
+            this.dateDataGridViewTextBoxColumn.HeaderText = "Date";
+            this.dateDataGridViewTextBoxColumn.Name = "dateDataGridViewTextBoxColumn";
+            this.dateDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // timeDataGridViewTextBoxColumn
+            // 
+            this.timeDataGridViewTextBoxColumn.DataPropertyName = "Time";
+            this.timeDataGridViewTextBoxColumn.FillWeight = 40F;
+            this.timeDataGridViewTextBoxColumn.HeaderText = "Time";
+            this.timeDataGridViewTextBoxColumn.Name = "timeDataGridViewTextBoxColumn";
+            this.timeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // flightNumbersStrDataGridViewTextBoxColumn
+            // 
+            this.flightNumbersStrDataGridViewTextBoxColumn.DataPropertyName = "FlightNumbersStr";
+            this.flightNumbersStrDataGridViewTextBoxColumn.FillWeight = 110F;
+            this.flightNumbersStrDataGridViewTextBoxColumn.HeaderText = "Flight number(s)";
+            this.flightNumbersStrDataGridViewTextBoxColumn.Name = "flightNumbersStrDataGridViewTextBoxColumn";
+            this.flightNumbersStrDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // cabinPriceDataGridViewTextBoxColumn
+            // 
+            this.cabinPriceDataGridViewTextBoxColumn.DataPropertyName = "CabinPriceStr";
+            this.cabinPriceDataGridViewTextBoxColumn.FillWeight = 90F;
+            this.cabinPriceDataGridViewTextBoxColumn.HeaderText = "Cabin price";
+            this.cabinPriceDataGridViewTextBoxColumn.Name = "cabinPriceDataGridViewTextBoxColumn";
+            this.cabinPriceDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // stopsNumberDataGridViewTextBoxColumn
+            // 
+            this.stopsNumberDataGridViewTextBoxColumn.DataPropertyName = "StopsNumber";
+            this.stopsNumberDataGridViewTextBoxColumn.FillWeight = 70F;
+            this.stopsNumberDataGridViewTextBoxColumn.HeaderText = "Stops number";
+            this.stopsNumberDataGridViewTextBoxColumn.Name = "stopsNumberDataGridViewTextBoxColumn";
+            this.stopsNumberDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // outboundFlightBindingSource
+            // 
+            this.outboundFlightBindingSource.DataSource = typeof(session_03.src.logic.Flight);
+            // 
             // frmSearchFlights
             // 
             this.AcceptButton = this.btnBookFlight;
@@ -535,9 +537,9 @@ namespace session_03.src.view.forms
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nudPassengersCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOutboundFlights)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.outboundFlightBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReturnFlights)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.returnFlightBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.outboundFlightBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }

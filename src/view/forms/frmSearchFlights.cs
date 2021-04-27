@@ -131,5 +131,15 @@ namespace session_03.src.view.forms
             var frm = new frmBooking(SelectedOutboundFlight, SelectedReturnFlight);
             frm.ShowDialog();
         }
+
+        private void rbntSearchReturn_CheckedChanged(object sender, EventArgs e)
+        {
+            dtpSearchReturn.Enabled = rbntSearchReturn.Checked;
+        }
+
+        private void rbntSearchOneWay_CheckedChanged(object sender, EventArgs e)
+        {
+            dtpSearchReturn.Enabled = rbntSearchReturn.Checked;
+        }
     }
 }
